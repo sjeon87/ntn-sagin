@@ -2,7 +2,7 @@
 # REAL mmwave NR NTN cell (NtnRealStackHelper), with measured SINR/TBLER/throughput.
 set(_sagin_real_libs
   ${libntn-sagin}
-  ${libntn-traffic}
+  ${libtraffic}
   ${libntn-cho}
   ${libntn-constellation}
   ${libcore}
@@ -62,7 +62,7 @@ build_lib_example(
     ${libpoint-to-point}
     ${libinternet}
     ${libapplications}
-    ${libntn-traffic}
+    ${libtraffic}
 )
 
 # Cross-layer network-slice steering (SaginSliceRouter) with real per-slice traffic.
@@ -79,7 +79,7 @@ build_lib_example(
     ${libpoint-to-point}
     ${libinternet}
     ${libapplications}
-    ${libntn-traffic}
+    ${libtraffic}
 )
 
 # Maritime AIS vessel terminal + LEO downlink (AisMobilityModel), real mmwave cell.
@@ -116,7 +116,7 @@ build_lib_example(
     ${libpoint-to-point}
     ${libinternet}
     ${libapplications}
-    ${libntn-traffic}
+    ${libtraffic}
 )
 
 # WS6 — remote coverage with multi-MNO infrastructure sharing.
@@ -137,7 +137,7 @@ build_lib_example(
     ${libntn-constellation}
     ${libntn-cho}
     ${libntn-observability}
-    ${libntn-traffic}
+    ${libtraffic}
     ${libcore}
     ${libnetwork}
     ${libmobility}
