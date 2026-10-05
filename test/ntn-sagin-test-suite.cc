@@ -587,7 +587,7 @@ class OpenSkyImporterMalformedTest : public TestCase
   private:
     void DoRun() override
     {
-        const std::string path = "/tmp/opensky-test-bad.csv";
+        const std::string path = CreateTempDirFilename("opensky-test-bad.csv");
         std::ofstream f(path);
         f << "time,icao24,lat,lon,velocity,heading,vertrate,callsign,"
              "onground,alert,spi,squawk,baroaltitude,geoaltitude,"
@@ -827,7 +827,7 @@ class AisImporterMalformedTest : public TestCase
   private:
     void DoRun() override
     {
-        const std::string path = "/tmp/ais-test-bad.csv";
+        const std::string path = CreateTempDirFilename("ais-test-bad.csv");
         std::ofstream f(path);
         f << "Timestamp,Type of mobile,MMSI,Latitude,Longitude,Navigational "
              "status,ROT,SOG,COG,Heading,IMO,Callsign,Name,Ship type,Cargo "
@@ -1725,9 +1725,8 @@ namespace
 {
 
 std::string
-MakeHapsCsv(bool include_optional)
+MakeHapsCsv(const std::string& path, bool include_optional)
 {
-    const std::string path = "/tmp/haps-trajectory-test.csv";
     std::ofstream f(path);
     if (include_optional)
     {
@@ -1760,7 +1759,7 @@ class HapsTrajectoryImportParseTest : public TestCase
 
     void DoRun() override
     {
-        const auto path = MakeHapsCsv(true);
+        const auto path = MakeHapsCsv(CreateTempDirFilename("haps-trajectory-test.csv"), true);
         sagin::HapsTrajectoryImporter imp;
         const auto traces = imp.LoadCsv(path);
         NS_TEST_ASSERT_MSG_EQ(traces.size(), 1u, "1 platform");
@@ -1789,7 +1788,7 @@ class HapsTrajectoryImportParseTest : public TestCase
         std::remove(path.c_str());
 
         // Minimal header (no heading / speed / platform_id).
-        const auto path2 = MakeHapsCsv(false);
+        const auto path2 = MakeHapsCsv(CreateTempDirFilename("haps-trajectory-minimal-test.csv"), false);
         const auto traces2 = imp.LoadCsv(path2);
         NS_TEST_ASSERT_MSG_EQ(traces2.size(), 1u, "default key");
         const auto& tr2 = traces2.at("haps");
@@ -1813,7 +1812,7 @@ class HapsTrajectoryMalformedTest : public TestCase
 
     void DoRun() override
     {
-        const std::string path = "/tmp/haps-malformed.csv";
+        const std::string path = CreateTempDirFilename("haps-malformed.csv");
         std::ofstream f(path);
         f << "time_s,lat_deg,lon_deg,alt_m\n";
         f << "0,40.0,-3.0,20000\n";
