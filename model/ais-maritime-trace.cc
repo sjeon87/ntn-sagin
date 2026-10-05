@@ -8,7 +8,7 @@
 
 #include <algorithm>
 #include <cmath>
-#include <ctime>
+#include <chrono>
 #include <fstream>
 #include <limits>
 #include <sstream>
@@ -150,20 +150,21 @@ ParseDanishTimestamp(const std::string& s, double& out_unix_s)
     {
         return false;
     }
-    std::tm t{};
-    t.tm_mday = dd;
-    t.tm_mon = mo - 1;
-    t.tm_year = yy - 1900;
-    t.tm_hour = hh;
-    t.tm_min = mm;
-    t.tm_sec = ss;
-    t.tm_isdst = 0;
-    time_t ts = timegm(&t); // UTC
+    const std::chrono::year_month_day date{std::chrono::year{yy},
+                                           std::chrono::month{static_cast<unsigned>(mo)},
+                                           std::chrono::day{static_cast<unsigned>(dd)}};
+    if (!date.ok())
+    {
+        return false;
+    }
+    const double ts =
+        std::chrono::duration<double>(std::chrono::sys_days{date}.time_since_epoch()).count() +
+        hh * 3600.0 + mm * 60.0 + ss;
     if (ts < 0)
     {
         return false;
     }
-    out_unix_s = static_cast<double>(ts);
+    out_unix_s = ts;
     return true;
 }
 
