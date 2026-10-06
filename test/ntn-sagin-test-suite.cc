@@ -1753,7 +1753,7 @@ class HapsTrajectoryImportParseTest : public TestCase
 {
   public:
     HapsTrajectoryImportParseTest()
-        : TestCase("§4.4.8: HAPS CSV parses header and rows")
+        : TestCase("HAPS: CSV parses header and rows")
     {
     }
 
@@ -1806,7 +1806,7 @@ class HapsTrajectoryMalformedTest : public TestCase
 {
   public:
     HapsTrajectoryMalformedTest()
-        : TestCase("§4.4.8: HAPS CSV skips malformed rows")
+        : TestCase("HAPS: CSV skips malformed rows")
     {
     }
 
@@ -1838,7 +1838,7 @@ class HapsTrajectoryInterpolationTest : public TestCase
 {
   public:
     HapsTrajectoryInterpolationTest()
-        : TestCase("§4.4.8: HAPS interpolation between waypoints")
+        : TestCase("HAPS: interpolation between waypoints")
     {
     }
 
@@ -1898,7 +1898,7 @@ class HapsTrajectoryMobilitySimulatorTest : public TestCase
 {
   public:
     HapsTrajectoryMobilitySimulatorTest()
-        : TestCase("§4.4.8: HAPS mobility advances under Simulator")
+        : TestCase("HAPS: mobility advances under Simulator")
     {
     }
 
